@@ -1,0 +1,362 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: megretson@gmail.com
+  description: "This is a recipe comparer tool      \n"
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Recipe Comparison
+  version: 1.0.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/MargaretAnderson/RecipeComparer/1.0.0
+- url: https://megretson.com/recipeProject/v1
+paths:
+  /recipes:
+    post:
+      operationId: add_recipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: add a new recipe
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+    put:
+      operationId: update_recipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: update a recipe
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /recipes/{recipeId}:
+    get:
+      operationId: get_recipe
+      parameters:
+      - description: ID of recipe to return
+        explode: false
+        in: path
+        name: recipeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: Recieve information on a recipe
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /recipes/{recipeId}/makes:
+    post:
+      operationId: add_recipe_make
+      parameters:
+      - description: ID of recipe to return
+        explode: false
+        in: path
+        name: recipeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: say that you made a recipe
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /recipes/{recipeId}/makes/{makeId}:
+    get:
+      operationId: get_recipe_make
+      parameters:
+      - description: ID of recipe to return
+        explode: false
+        in: path
+        name: recipeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      - description: ID of make to return
+        explode: false
+        in: path
+        name: makeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: Recieve information on a given make of a recipe
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /recipes/{recipeId}/makes/{makeId}/differences:
+    get:
+      operationId: get_recipe_make_differences
+      parameters:
+      - description: ID of recipe to return
+        explode: false
+        in: path
+        name: recipeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      - description: ID of make to return
+        explode: false
+        in: path
+        name: makeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+          description: Success
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Recipe not found
+        "405":
+          description: Validation exception
+      summary: "Recieve information on a given make of a recipe, including any variations\
+        \ between the make and the actual recipe"
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+components:
+  schemas:
+    recipe:
+      example:
+        recipeName: recipeName
+        rating: 6.027456183070403
+        ingredients:
+        - ingredientId: 1.4658129805029452
+          quantity: 5.962133916683182
+          ingredientName: ingredientName
+          measurement: measurement
+        - ingredientId: 1.4658129805029452
+          quantity: 5.962133916683182
+          ingredientName: ingredientName
+          measurement: measurement
+        steps:
+        - stepId: 5.637376656633329
+          stepText: stepText
+        - stepId: 5.637376656633329
+          stepText: stepText
+        recipeId: 0.8008281904610115
+      properties:
+        recipeName:
+          title: recipeName
+          type: string
+        recipeId:
+          title: recipeId
+          type: number
+        rating:
+          title: rating
+          type: number
+        ingredients:
+          items:
+            $ref: '#/components/schemas/ingredient'
+          title: ingredients
+          type: array
+        steps:
+          items:
+            $ref: '#/components/schemas/step'
+          title: steps
+          type: array
+      title: recipe
+      type: object
+    ingredients:
+      items:
+        $ref: '#/components/schemas/ingredient'
+      title: ingredients
+      type: array
+    ingredient:
+      example:
+        ingredientId: 1.4658129805029452
+        quantity: 5.962133916683182
+        ingredientName: ingredientName
+        measurement: measurement
+      properties:
+        ingredientId:
+          title: ingredientId
+          type: number
+        quantity:
+          title: quantity
+          type: number
+        measurement:
+          title: measurement
+          type: string
+        ingredientName:
+          title: ingredientName
+          type: string
+      title: ingredient
+      type: object
+    steps:
+      items:
+        $ref: '#/components/schemas/step'
+      title: steps
+      type: array
+    step:
+      example:
+        stepId: 5.637376656633329
+        stepText: stepText
+      properties:
+        stepId:
+          title: stepId
+          type: number
+        stepText:
+          title: stepText
+          type: string
+      title: step
+      type: object
+    differences:
+      items:
+        $ref: '#/components/schemas/differenceObject'
+      type: array
+    differenceObject:
+      properties:
+        recipeField:
+          enum:
+          - rating
+          - ingredient
+          - instruction
+          title: recipeField
+          type: string
+        recipeId:
+          title: recipeId
+          type: number
+        makeId:
+          title: makeId
+          type: number
+        difference:
+          $ref: '#/components/schemas/difference'
+      required:
+      - difference
+      - makeId
+      - recipeField
+      - recipeId
+      title: differenceObject
+      type: object
+    ratingDifference:
+      allOf:
+      - $ref: '#/components/schemas/differenceObject'
+    ingredientDifference:
+      allOf:
+      - $ref: '#/components/schemas/differenceObject'
+      - properties:
+          ingredientId:
+            type: number
+          ingredientField:
+            enum:
+            - quantity
+            - measurement
+            - ingredientName
+            type: string
+          difference:
+            $ref: '#/components/schemas/difference'
+        required:
+        - difference
+        - ingredientField
+        - ingredientId
+        type: object
+    stepDifference:
+      allOf:
+      - $ref: '#/components/schemas/differenceObject'
+      - properties:
+          difference:
+            $ref: '#/components/schemas/stepDifference_allOf_difference'
+        required:
+        - difference
+        type: object
+    difference:
+      properties:
+        recipe:
+          title: recipe
+          type: string
+        make:
+          title: make
+          type: string
+      title: difference
+      type: object
+    stepDifference_allOf_difference:
+      properties:
+        stepId:
+          title: stepId
+          type: number
+      required:
+      - stepId
+      title: stepDifference_allOf_difference
+      type: object

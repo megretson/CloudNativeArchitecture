@@ -1,0 +1,294 @@
+openapi: 3.0.0
+info:
+  description: |
+    This is a recipe comparer tool      
+  version: "1.0.0"
+  title: Recipe Comparison
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: megretson@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/MargaretAnderson/RecipeComparer/1.0.0
+  - url: 'https://megretson.com/recipeProject/v1'
+paths:
+  /recipes:
+    post:
+      summary: add a new recipe
+      operationId: addRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+    put:
+      summary: update a recipe
+      operationId: updateRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+        
+  '/recipes/{recipeId}/makes':
+    post:
+      summary: say that you made a recipe
+      operationId: addRecipeMake
+      parameters:
+        - name: recipeId
+          in: path
+          description: ID of recipe to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recipe'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+  '/recipes/{recipeId}':
+    get: 
+      summary: Recieve information on a recipe
+      operationId: getRecipe
+      parameters:
+        - name: recipeId
+          in: path
+          description: ID of recipe to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+  '/recipes/{recipeId}/makes/{makeId}':
+    get: 
+      summary: Recieve information on a given make of a recipe
+      operationId: getRecipeMake
+      parameters:
+        - name: recipeId
+          in: path
+          description: ID of recipe to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: makeId
+          in: path
+          description: ID of make to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+  '/recipes/{recipeId}/makes/{makeId}/differences':
+    get: 
+      summary: Recieve information on a given make of a recipe, including any variations between the make and the actual recipe
+      operationId: getRecipeMakeDifferences
+      parameters:
+        - name: recipeId
+          in: path
+          description: ID of recipe to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: makeId
+          in: path
+          description: ID of make to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipe'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Recipe not found
+        '405':
+          description: Validation exception
+  
+components:
+  schemas:
+    recipe:
+      type: object
+      properties:
+        recipeName:
+          type: string
+        recipeId:
+          type: number
+        rating:
+          type: number
+        ingredients:
+          $ref: '#/components/schemas/ingredients'
+        steps:
+          $ref: '#/components/schemas/steps'
+    ingredients:
+      type: array
+      items:
+        $ref: '#/components/schemas/ingredient'
+    ingredient:
+      type: object
+      properties:
+        ingredientId:
+          type: number
+        quantity:
+          type: number
+        measurement:
+          type: string
+        ingredientName:
+          type: string
+    steps:
+      type: array
+      items: 
+        $ref: '#/components/schemas/step'
+    step:
+      type: object
+      properties:
+        stepId:
+          type: number
+        stepText: 
+          type: string
+    differences:
+      type: array
+      items: 
+        $ref: '#/components/schemas/differenceObject'
+    differenceObject:
+      type: object
+      properties:
+        recipeField:
+          type: string
+          enum: 
+            - rating
+            - ingredient
+            - instruction
+        recipeId:
+          type: number
+        makeId:
+          type: number
+        difference:
+          $ref: '#/components/schemas/difference'
+      required:
+        - recipeField
+        - recipeId
+        - makeId
+        - difference
+    ratingDifference:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/differenceObject'
+    ingredientDifference:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/differenceObject'
+        - type: object
+          required:
+            - ingredientId
+            - ingredientField
+            - difference
+          properties:
+            ingredientId:
+              type: number
+            ingredientField:
+              type: string
+              enum:
+                - quantity
+                - measurement
+                - ingredientName
+            difference:
+              $ref: '#/components/schemas/difference'
+    stepDifference:
+      allOf:     # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/differenceObject'
+        - type: object
+          required:
+            - difference
+          properties:
+            difference:
+              type: object
+              properties:
+                stepId:
+                  type: number
+              required:
+                - stepId
+    difference:
+      type: object
+      properties:
+        recipe:
+          type: string
+        make:
+          type: string
+
+
+
+    
