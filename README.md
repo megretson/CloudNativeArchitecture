@@ -24,7 +24,13 @@ Architecture diagram of your solution including data flow
 
 ## Problem Statement 
 
-The use-case I have created is one for recipes. Every-time a recipe is made, that recipe can be made exactly, or with modifications. When a recipe is made, that recipe begins in our system as a JSON file that is placed in some common location, in this case some shared file location. That file location is regularly polled by a file watcher for changes. When the poller notices that a file has been created, it creates an upload job. This job is then completed by a separate service that submits the job to our comparison server. This server then finds any changes between the original recipe and this make of the recipe, and stores those in a database to be analyzed later and eventually displayed on a dashboard.
+The use-case I have created is one for recipes.  Every-time a recipe is made, that recipe can be made exactly, or with modifications. When a recipe
+is made, that recipe begins in our system as a JSON file that is placed in some common location, in this case
+some shared file location. That file location is regularly polled by a file watcher for changes. When the poller
+notices that a file has been created, it creates an upload job. This job is then completed by a separate service
+that submits the job to our comparison server. This server then finds any changes between the original recipe
+and this make of the recipe, and stores those in a database to be analyzed later and eventually displayed on a
+dashboard.
 
 ## Diagrams and labeled components 
 ### Components of system
@@ -366,6 +372,9 @@ The bottom right is the server, which prints the endpoint that was hit and the r
 In the middle on the top is the S3 bucket where I uploaded a new recipe file.
 
 The the middle on the bottom is a viewer for the dynamo db where you can see the new recipe ("Apple Pie 2") has been uploaded. 
+
+![alt text](./documentation_images/cloud_monitoring.png)
+This shows my CloudWatch dashboard for this EC2 instance, which is not very interesting at this moment. All of these could be deployed on their own instances, but I only get one instance for free so they're all crowded up there at the moment, hence why my CPU utilization is at 82%! 
 
 ## Source code
 All source code is on my github: 
