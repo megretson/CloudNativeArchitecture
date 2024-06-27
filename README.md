@@ -7,7 +7,7 @@
 
 ## Description
 - Build a distributed application (3 or more components) that executes a business process or application.
-- This application needs to be on the cloud and will sue 3 of the following technology components: messaging, queuing, caching, and databases. 
+- This application needs to be on the cloud and will use 3 of the following technology components: messaging, queuing, caching, and databases. 
 - Additional components such as storage, vm is fine, but no functions 
   
 
