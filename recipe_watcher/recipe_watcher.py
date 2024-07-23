@@ -6,7 +6,7 @@ import boto3
 from botocore.exceptions import ClientError
 import logging
 import time
-import pika
+import queue_wrapper
 import sys
 
 logger = logging.getLogger(__name__)
@@ -20,10 +20,8 @@ class RecipeWatcher:
             bucket.name: bucket for bucket in self.s3_resource.buckets.all()}
         self.previous_files = None
         self.polling_time = polling_time if polling_time != None else 5
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters('localhost'))
-        self.channel = connection.channel()
-        self.channel.queue_declare(queue="recipe_jobs")
+        self.queue = queue_wrapper.create_queue("CloudComputingMessagingQueue")
+
 
     def hello_s3(self):
         """
@@ -110,15 +108,58 @@ class RecipeWatcher:
         return self.list_objects(bucket, None, True)
 
     def submit_new_objects(self, new_files: set):
+        logger.info("Sending new files")
         for file in new_files:
             data = self.get_object_data(file)
             pprint.pp(json.loads(data))
             self.enqueue_send_job(data)
 
+
     def enqueue_send_job(self, data):
-        self.channel.basic_publish(exchange='',
-                                   routing_key='recipe_jobs',
-                                   body=data)
+        self.send_messages([{"body": data, "attributes": {}}])
+
+    def send_messages(self, messages):
+        """
+        Send a batch of messages in a single request to an SQS queue.
+        This request may return overall success even when some messages were not sent.
+        The caller must inspect the Successful and Failed lists in the response and
+        resend any failed messages.
+
+        :param queue: The queue to receive the messages.
+        :param messages: The messages to send to the queue. These are simplified to
+                        contain only the message body and attributes.
+        :return: The response from SQS that contains the list of successful and failed
+                messages.
+        """
+        try:
+            entries = [
+                {
+                    "Id": str(ind),
+                    "MessageBody": msg["body"],
+                    "MessageAttributes": msg["attributes"],
+                }
+                for ind, msg in enumerate(messages)
+            ]
+            response = self.queue.send_messages(Entries=entries)
+            if "Successful" in response:
+                for msg_meta in response["Successful"]:
+                    logger.info(
+                        "Message sent: %s: %s",
+                        msg_meta["MessageId"],
+                        messages[int(msg_meta["Id"])]["body"],
+                    )
+            if "Failed" in response:
+                for msg_meta in response["Failed"]:
+                    logger.warning(
+                        "Failed to send: %s: %s",
+                        msg_meta["MessageId"],
+                        messages[int(msg_meta["Id"])]["body"],
+                    )
+        except ClientError as error:
+            logger.exception("Send messages failed to queue: %s", self.queue)
+            raise error
+        else:
+            return response
 
     def check_for_new_files(self, bucket):
         if self.previous_files:
@@ -139,9 +180,15 @@ class RecipeWatcher:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[logging.FileHandler("debug.log"), logging.StreamHandler(sys.stdout)],
+    )
     file_watcher = RecipeWatcher()
     file_watcher.hello_s3()
     bucket = file_watcher.get_bucket("cloud-native-class-bucket")
+
 
     try:
         x = threading.Thread(

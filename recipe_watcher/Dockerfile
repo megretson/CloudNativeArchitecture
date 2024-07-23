@@ -10,6 +10,6 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["python3", "-u", "recipe_watcher.py"]
