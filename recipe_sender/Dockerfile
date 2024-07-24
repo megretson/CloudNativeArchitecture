@@ -11,6 +11,8 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 
+ENV AWS_DEFAULT_REGION=us-east-2
+
 EXPOSE 8081
 
 # ENTRYPOINT ["python3"]
