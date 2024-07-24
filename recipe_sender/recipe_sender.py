@@ -19,7 +19,7 @@ class RecipeSender:
     def __init__(self, polling_time=None) -> None:
 
         self.configuration = openapi_client.Configuration(
-            host="http://127.0.0.1:8080/MargaretAnderson/RecipeComparer/1.0.0"
+            host="recipe_server.cloud-pod-network/MargaretAnderson/RecipeComparer/1.0.0"
         )
         self.polling_time = polling_time if polling_time != None else 5
         self.queue = queue_wrapper.create_queue("CloudComputingMessagingQueue")
