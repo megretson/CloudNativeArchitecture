@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::381491925759:role/DockerRole
+  name: recipe-service-account
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: recipe-project
+  name: recipe-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-project
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: recipe-project
+    spec:
+      serviceAccountName: default
+      containers:
+      - image: 381491925759.dkr.ecr.us-east-2.amazonaws.com/cloud-computing:recipe_server
+        name: recipe-server
+        resources: {}
+        ports:
+          - containerPort: 8080
+      - image: 381491925759.dkr.ecr.us-east-2.amazonaws.com/cloud-computing:recipe_watcher
+        name: recipe-watcher
+        resources: {}
+      - image: 381491925759.dkr.ecr.us-east-2.amazonaws.com/cloud-computing:recipe_sender
+        name: recipe-sender
+        resources: {}
+status: {}
