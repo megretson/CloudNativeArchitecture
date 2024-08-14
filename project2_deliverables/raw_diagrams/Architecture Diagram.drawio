@@ -1,0 +1,151 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0" version="24.7.4">
+  <diagram name="Page-1" id="2AhlaEMLkmuMSig4efZs">
+    <mxGraphModel dx="1397" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-2" value="AWS Services " style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="200" width="210" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="zxIiHkNOPDkXGptr9QAK-2" source="zxIiHkNOPDkXGptr9QAK-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="368" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-19" value="Dynamo DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-2">
+          <mxGeometry x="40" y="315" width="120" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-22" value="SQS" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-2">
+          <mxGeometry x="40" y="210" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-23" value="S3 Bucket " style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-2">
+          <mxGeometry x="40" y="80" width="120" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-3" value="Kubernetes Cluster " style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="200" width="700" height="450" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-4" value="Worker Node" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-3">
+          <mxGeometry x="5" y="30" width="690" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="zxIiHkNOPDkXGptr9QAK-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="55" as="sourcePoint" />
+            <mxPoint x="135" y="55" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-35" value="&lt;div&gt;Requesting AWS&amp;nbsp;&lt;/div&gt;&lt;div&gt;authentication&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-34">
+          <mxGeometry x="0.3161" y="2" relative="1" as="geometry">
+            <mxPoint x="20" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-5" value="Pod" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-4">
+          <mxGeometry x="280" y="30" width="400" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-11" value="Docker Container" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-5">
+          <mxGeometry x="20" y="30" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-24" value="Recipe Watcher " style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-11">
+          <mxGeometry x="7.5" y="30" width="145" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="zxIiHkNOPDkXGptr9QAK-5" source="zxIiHkNOPDkXGptr9QAK-25" target="zxIiHkNOPDkXGptr9QAK-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-30" value="&lt;div&gt;HTTP communication&amp;nbsp;&lt;/div&gt;&lt;div&gt;to send recipes&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-29">
+          <mxGeometry x="-0.0632" relative="1" as="geometry">
+            <mxPoint x="24" y="-25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-25" value="Docker Container" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-5">
+          <mxGeometry x="225" y="130" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-26" value="Recipe Sender " style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-25">
+          <mxGeometry x="7.5" y="30" width="145" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-27" value="Docker Container" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-5">
+          <mxGeometry x="20" y="250" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-28" value="Recipe Server" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-27">
+          <mxGeometry x="7.5" y="30" width="145" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="zxIiHkNOPDkXGptr9QAK-4" source="zxIiHkNOPDkXGptr9QAK-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="275" y="85" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-37" value="&lt;div&gt;Providing AWS auth&amp;nbsp;&lt;/div&gt;&lt;div&gt;for all AWS Services &lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-36">
+          <mxGeometry x="0.046" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-12" value="Pod Identity Service Account " style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="zxIiHkNOPDkXGptr9QAK-4">
+          <mxGeometry x="15" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="zxIiHkNOPDkXGptr9QAK-22" target="zxIiHkNOPDkXGptr9QAK-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1048" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-32" value="Receiving Recipes from the queue" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-31">
+          <mxGeometry x="-0.3553" relative="1" as="geometry">
+            <mxPoint x="34" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zxIiHkNOPDkXGptr9QAK-24" target="zxIiHkNOPDkXGptr9QAK-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="355" />
+              <mxPoint x="560" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-39" value="Polling for File Changes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-38">
+          <mxGeometry x="0.1733" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="zxIiHkNOPDkXGptr9QAK-24" target="zxIiHkNOPDkXGptr9QAK-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="373" />
+              <mxPoint x="790" y="400" />
+              <mxPoint x="320" y="400" />
+              <mxPoint x="320" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-41" value="Submitting File Changes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-40">
+          <mxGeometry x="-0.2185" y="-2" relative="1" as="geometry">
+            <mxPoint x="6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="zxIiHkNOPDkXGptr9QAK-28" target="zxIiHkNOPDkXGptr9QAK-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="843" y="568" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-43" value="Uploading recipes changes to the DB" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-42">
+          <mxGeometry x="0.0935" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-44" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="120" y="270" width="60" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.025;entryY=0.429;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="zxIiHkNOPDkXGptr9QAK-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="325" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zxIiHkNOPDkXGptr9QAK-46" value="Uploads Recipe" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="zxIiHkNOPDkXGptr9QAK-45">
+          <mxGeometry x="-0.1371" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

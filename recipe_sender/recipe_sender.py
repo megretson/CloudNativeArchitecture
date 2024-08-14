@@ -5,6 +5,7 @@ import threading
 import openapi_client
 from openapi_client.rest import ApiException
 import logging
+import logging
 import time
 import pika
 from urllib3.exceptions import NewConnectionError
